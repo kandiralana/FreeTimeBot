@@ -272,10 +272,10 @@ def computer_game():
         while True:
             try:
                 game_genre = int(input('\nWe have these genres:'
-                                       '\n\t1) Action'
-                                       '\n\t2) Adventure'
-                                       '\n\t3) Shooter'
-                                       '\n\t4) Strategy'
+                                       '\n\t1) Action ⚡️'
+                                       '\n\t2) Adventure 🎒'
+                                       '\n\t3) Shooter 🔫'
+                                       '\n\t4) Strategy 🧠'
                                        '\n\tType 0 to back to MENU'
                                        '\n>>> '))
                 break
