@@ -657,23 +657,26 @@ def game_rock_paper_scissors():
                                     '\n\tP for PAPER 📄'
                                     '\n\tS for SCISSORS ✂️'
                                     '\n\tType 0 to back to MENU'
-                                    '\n>>> ')
+                                    '\n>>> ').strip().lower()
                 break
             except (TypeError, ValueError):
                 print('Please enter R, P, S, or 0.')
-            except user_choice.lower() not in {'r', 'p', 's'}:
-                print('Invalid choice. Please enter R, P, S, or 0.')
-            if user_choice == 0:
-                menu()
+                continue
+        if user_choice not in {'r', 'p', 's'}:
+            print('Invalid choice. Please enter R, P, S, or 0.')
+            continue
+        if user_choice == '0':
+            menu()
+            break
 
         # USER == COMPUTER
-        if user_choice.lower() == random_option:
+        if user_choice == random_option:
             draw += 1
             print(f'DRAW 🤝'
                   f'\nScore now {win}:{lose}'
                   f'\nDraws were {draw} times')
         # USER == ROCK 🪨
-        elif user_choice.lower() == 'r':
+        elif user_choice == 'r':
             # COMPUTER == SCISSORS ✂️
             if random_option == 's':
                 winner()
@@ -710,29 +713,29 @@ def game_rock_paper_scissors():
                     break
 
 
-revenge = -1
-while revenge not in range(0, 3):
-    while True:
-        try:
-            revenge = int(input('\nDo you want to play this game again?'
-                                '\n\t1) Yes ✅'
-                                '\n\t2) No, I want another game 🔁'
-                                '\n\tType 0 to back to MENU'
-                                '\n>>> '))
-            break
-        except (TypeError, ValueError):
-            print('Please enter a valid number.')
+    revenge = -1
+    while revenge not in range(0, 3):
+        while True:
+            try:
+                revenge = int(input('\nDo you want to play this game again?'
+                                    '\n\t1) Yes ✅'
+                                    '\n\t2) No, I want another game 🔁'
+                                    '\n\tType 0 to back to MENU'
+                                    '\n>>> '))
+                break
+            except (TypeError, ValueError):
+                print('Please enter a valid number.')
 
-    if revenge not in range(0, 3):
-        print('‼️Invalid choice. Try again')
-    if revenge == 0:
-        menu()
-else:
-    match revenge:
-        case 1:
-            game_rock_paper_scissors()
-        case 2:
-            game_guess_a_number()
+        if revenge not in range(0, 3):
+            print('‼️Invalid choice. Try again')
+        if revenge == 0:
+            menu()
+    else:
+        match revenge:
+            case 1:
+                game_rock_paper_scissors()
+            case 2:
+                game_guess_a_number()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
