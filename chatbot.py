@@ -4,7 +4,6 @@ games by genre, jokes, interesting stories, as well as provide an opportunity to
 import random
 import pyjokes
 from tqdm import tqdm
-from termcolor import colored
 import art
 import time
 
