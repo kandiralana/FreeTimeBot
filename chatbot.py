@@ -361,7 +361,15 @@ def jokes():
 
 
 def story_editor(bare_story):
-    """???"""
+    """
+    Processes a raw story text by formatting it into lines with a maximum length of 100 characters.
+
+    Parameters:
+        - bare_story (str): The raw story text to be processed.
+
+    Returns:
+        str: The formatted story with lines of maximum length 100 characters.
+    """
     max_len = 100
     words = bare_story.split()
     processed_lines = []
@@ -380,7 +388,17 @@ def story_editor(bare_story):
 
 
 def story():
-    """ stories"""
+    """
+    Manages the selection and display of stories based on user input.
+
+    Usage:
+        - This function prompts the user to choose a story genre from Science Fiction, Mystery, or Fantasy.
+        - It then formats and displays the selected story, providing a recommendation based on the chosen genre.
+
+        Example:
+            '>>> 2'
+    """
+
     global stories
     story_genre = -1
 
@@ -448,7 +466,20 @@ def story():
 
 
 def games():
-    """games choosing"""
+    """
+    Allows the user to choose and play one of two interactive games: Guess a Number or Rock-Paper-Scissors.
+
+    Returns:
+        None
+
+    Usage:
+        Call the function to prompt the user for a game choice and play the selected game.
+
+        Example:
+            '>>> 1'
+            [The Guess a Number Game starts]
+    """
+
     game_choice = -1
     while game_choice not in range(0, 3):
         while True:
@@ -476,7 +507,31 @@ def games():
 
 
 def game_guess_a_number():
-    """ game_guess_a_number"""
+    """
+    Conducts a Guess a Number Game where the user tries to guess a randomly generated secret number within a given range.
+
+    The game provides the user with a limited number of attempts to guess the correct number.
+    After each guess, feedback is given, and the game offers the option to play again.
+
+    Returns:
+        None
+
+    Usage:
+        Call the function to start and play the Guess a Number Game.
+
+        Example:
+            '>>> game_guess_a_number()'
+
+            [Game interactions and outcomes are displayed]
+
+            Do you want to play this game again?
+                1) Yes ✅
+                2) No, I want another game 🔁
+                Type 0 to back to MENU
+            '>>> 1'
+            [The Guess a Number Game restarts]
+    """
+
     global user_guess
     print('Let\'s start a 🧠Guess a Number Game!')
     guess_counter = 3
@@ -534,7 +589,32 @@ def game_guess_a_number():
 
 
 def game_rock_paper_scissors():
-    """ game_rock_paper_scissors✂️"""
+    """
+    Conducts a Rock-Paper-Scissors Game where the user competes against the computer to reach a certain score.
+
+    The game provides options for ROCK 🪨, PAPER 📄, and SCISSORS ✂️. The user and the computer make choices,
+    and the winner is determined based on the rules of Rock-Paper-Scissors. The first to reach a specified
+    number of points wins the game.
+
+    Returns:
+        None
+
+    Usage:
+        Call the function to start and play the Rock-Paper-Scissors Game.
+
+        Example:
+            '>>> game_rock_paper_scissors()'
+
+            [Game interactions and outcomes are displayed]
+
+            Do you want to play this game again?
+                1) Yes ✅
+                2) No, I want another game 🔁
+                Type 0 to back to MENU
+            '>>> 1'
+            [The Rock-Paper-Scissors Game restarts]
+    """
+
     global win, lose
     game_options = {
         'r': 'ROCK 🪨',
@@ -649,7 +729,17 @@ else:
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    '''menu'''
+    """
+    Entry point for the chatbot application.
+    Invokes the main menu function to provide users with interactive options.
+
+    Returns:
+        None
+
+    Usage:
+        Run this script to start the chatbot and access the main menu.
+    """
+
     print('👋 Hello, you!'
           '\nThis chatbot can bring a bit of joy and benefit to your life 😉')
     menu()
