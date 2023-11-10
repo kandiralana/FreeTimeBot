@@ -651,13 +651,21 @@ def game_rock_paper_scissors():
     while win != attempts or lose != attempts:
         random_option = random.choice(list(game_options.keys()))
         print(random_option)
-
-        user_choice = input('Choose:'
-                            '\n\tR for ROCK 🪨'
-                            '\n\tP for PAPER 📄'
-                            '\n\tS for SCISSORS ✂️'
-                            '\n\tType 0 to back to MENU'
-                            '\n>>> ')
+        while True:
+            try:
+                user_choice = input('Choose:'
+                                    '\n\tR for ROCK 🪨'
+                                    '\n\tP for PAPER 📄'
+                                    '\n\tS for SCISSORS ✂️'
+                                    '\n\tType 0 to back to MENU'
+                                    '\n>>> ')
+                break
+            except (TypeError, ValueError):
+                print('Please enter R, P, S, or 0.')
+            except user_choice.lower() not in {'r', 'p', 's'}:
+                print('Invalid choice. Please enter R, P, S, or 0.')
+            if user_choice == 0:
+                menu()
 
         # USER == COMPUTER
         if user_choice.lower() == random_option:
