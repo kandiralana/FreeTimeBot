@@ -509,7 +509,6 @@ def game_rock_paper_scissors():
     }
 
     attempts = 3
-
     win = 0
     lose = 0
     draw = 0
@@ -518,44 +517,20 @@ def game_rock_paper_scissors():
           f'\nYou need to choose between ROCK 🪨, PAPER 📄and SCISSORS ✂️'
           f'\nYou have only {attempts} attempts to win ')
 
-    def winner():
-        """
-        Function for win points counting
-
-        Returns:
-             win points (win)
-
-        Usage:
-            Called by mother function after user's move
-        """
-
-        global win
-        win += 1
+    def print_result(outcome):
         print(f'{game_options[user_choice]} beats {game_options[random_option]}'
-              f'\n🎉YOU WIN!'
+              f'\n{outcome}'
               f'\nScore now {win}:{lose}'
               f'\nDraws were {draw} times')
-        return win
 
-    def loser():
-        """
-        Function for lose points counting
-
-        Returns:
-            lose points (lose)
-
-        Usage:
-            Called by mother function after user's move
-        """
-
+    def update_score(result):
+        global win
         global lose
-        lose += 1
+        if result == 'WIN':
+            win += 1
+        elif result == 'LOSE':
+            lose += 1
 
-        print(f'{game_options[random_option]} beats {game_options[user_choice]}'
-              f'\n🤡YOU LOSE!'
-              f'\nScore now {win}:{lose}'
-              f'\nDraws were {draw} times')
-        return lose
 
     while True:
         random_option = random.choice(list(game_options.keys()))
@@ -582,52 +557,15 @@ def game_rock_paper_scissors():
                 menu()
             break
 
-        # USER == COMPUTER
         if user_choice == random_option:
             draw += 1
-            print(f'DRAW 🤝'
-                  f'\nYou both\'ve chosen the {game_options[random_option]}'
-                  f'\nScore now {win}:{lose}'
-                  f'\nDraws were {draw} times')
-
-        # USER == ROCK 🪨
-        elif user_choice == 'r':
-            # COMPUTER == SCISSORS ✂️
-            if random_option == 's':
-                winner()
-                if win == attempts:
-                    break
-            # COMPUTER == PAPER 📄
-            else:
-                loser()
-                if lose == attempts:
-                    break
-
-        # USER == PAPER 📄
-        elif user_choice == 'p':
-            # COMPUTER == ROCK 🪨
-            if random_option == 'r':
-                winner()
-                if win == attempts:
-                    break
-            # COMPUTER == SCISSORS ✂️
-            else:
-                loser()
-                if lose == attempts:
-                    break
-
-        # USER == SCISSORS ✂️
+            print_result(f'DRAW 🤝\nYou both\'ve chosen the {game_options[random_option]}')
         else:
-            # COMPUTER == PAPER 📄
-            if random_option == 'p':
-                winner()
-                if win == attempts:
-                    break
-            # COMPUTER == ROCK 🪨
-            else:
-                loser()
-                if lose == attempts:
-                    break
+            result = 'WIN' if ((user_choice == 'r' and random_option == 's') or
+                               (user_choice == 'p' and random_option == 'r') or
+                               (user_choice == 's' and random_option == 'p')) else 'LOSE'
+            update_score(result)
+            print_result(f'YOU {result}!')
 
         if win == lose:
             continue
@@ -651,7 +589,7 @@ def game_rock_paper_scissors():
             print('Please enter a valid number.')
             continue
 
-        if not 0 <= revenge <= 3:
+        if not 0 <= revenge <= 2:
             print('‼️Invalid choice. Try again')
             continue
 
