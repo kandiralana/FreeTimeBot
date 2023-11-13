@@ -51,19 +51,107 @@ def menu():
         if choice not in range(0, 7):
             print('‼️Invalid operation. Try again')
         if choice == 0:
-            for i in tqdm(range(10), desc="Completion of the program", ncols=100, colour='green'):
+            for _ in tqdm(range(10), desc="Completion of the program", ncols=100, colour='green'):
                 time.sleep(0.1)
             print('\nThank you for time with us! 🤝')
             break
 
+    movies = {
+        'Horror': {
+            'The Exorcist': {'year': 1973, 'IMDb rate': 8.1},
+            '[Rec]': {'year': 2007, 'IMDb rate': 7.4},
+            'Paranormal Activity': {'year': 2007, 'IMDb rate': 6.3},
+            'Shutter (II)': {'year': 2004, 'IMDb rate': 7.0},
+            'The Fourth Kind': {'year': 2009, 'IMDb rate': 5.9}
+        },
+        'Comedy': {
+            'Step Brothers': {'year': 2008, 'IMDb rate': 6.9},
+            'White Chicks': {'year': 2004, 'IMDb rate': 5.8},
+            'The Hot Chick': {'year': 2002, 'IMDb rate': 5.5},
+            'The Hangover': {'year': 2009, 'IMDb rate': 7.7},
+            'Horrible Bosses': {'year': 2011, 'IMDb rate': 6.9}
+        },
+        'Adventure': {
+            'The Killer': {'year': 2023, 'IMDb rate': 7.4},
+            'Spider-Man: Across the Spider-Verse': {'year': 2023, 'IMDb rate': 8.7},
+            'Barbie': {'year': 2023, 'IMDb rate': 7.0},
+            'Mission: Impossible - Dead Reckoning Part One': {'year': 2023, 'IMDb rate': 7.8},
+            'The Hunger Games': {'year': 2012, 'IMDb rate': 7.2}
+        },
+        'Christmas': {
+            'Home Alone ': {'year': 1990, 'IMDb rate': 7.7},
+            'National Lampoon\'s Christmas Vacation': {'year': 1989, 'IMDb rate': 7.5},
+            'Elf': {'year': 2003, 'IMDb rate': 7.1},
+            'Trading Places': {'year': 1983, 'IMDb rate': 7.5},
+            'The Christmas Chronicles': {'year': 2018, 'IMDb rate': 7.0}
+        }
+    }
+    music_folder = {
+        'Rock': {
+            '"I Love Rock\'N Roll"': {'singer': 'Joan Jett & the Blackhearts', 'year': 1981},
+            '"Born to Run"': {'singer': 'Bruce Springsteen', 'year': 1975},
+            '"Starman"': {'singer': 'David Bowie', 'year': 1972},
+            '"Whole Lotta Love"': {'singer': 'Led Zeppelin', 'year': 1969},
+            '"La Grange"': {'singer': 'ZZ Top', 'year': 1973}
+        },
+        'Jazz': {
+            '"Take Five"': {'singer': 'Dave Brubeck Quartet', 'year': 1959},
+            '"Kind of Blue"': {'singer': 'Miles Davis', 'year': 1959},
+            '"A Love Supreme"': {'singer': 'John Coltrane', 'year': 1965},
+            '"My Favorite Things"': {'singer': 'John Coltrane', 'year': 1961},
+            '"So What"': {'singer': 'Miles Davis', 'year': 1959},
+        },
+        'Blues': {
+            '"Stormy Monday"': {'singer': 'T-Bone Walker', 'year': 1947},
+            '"The Thrill is Gone"': {'singer': 'B.B. King', 'year': 1969},
+            '"Crossroads"': {'singer': 'Robert Johnson', 'year': 1936},
+            '"Hoochie Coochie Man"': {'singer': 'Muddy Waters', 'year': 1954},
+            '"Sweet Home Chicago"': {'singer': 'Robert Johnson', 'year': 1936},
+        },
+        'Christmas': {
+            '"All I Want for Christmas Is You"': {'singer': 'Mariah Carey', 'year': 1994},
+            '"Last Christmas"': {'singer': 'Wham!', 'year': 1984},
+            '"Jingle Bell Rock"': {'singer': 'Bobby Helms', 'year': 1957},
+            '"Feliz Navidad"': {'singer': 'José Feliciano', 'year': 1970},
+            '"White Christmas"': {'singer': 'Bing Crosby', 'year': 1942},
+        }
+    }
+    comp_games = {
+        'Action': {
+            '"God of War"': {'developer': 'Insomniac Games', 'platform': 'PC, PS4, PS5', 'year': 2018},
+            '"Uncharted 4: A Thief\'s End"': {'developer': 'Naughty Dog', 'platform': 'PC, PS4, PS5', 'year': 2016},
+            '"Marvel\'s Spider-Man"': {'developer': 'Insomniac Games', 'platform': 'PC, PS4, PS5', 'year': 2018}
+        },
+        'Adventure': {
+            '"Red Dead Redemption 2"': {'developer': 'Rockstar', 'platform': 'PC, PS4, Xbox One', 'year': 2018},
+            '"The Witcher 3: Wild Hunt"': {'developer': 'CD Projekt Red',
+                                           'platform': 'PC, PS4, Xbox One, Nintendo Switch', 'year': 2015},
+            '"Baldur\'s Gate 3"': {'developer': 'Larian Studios', 'platform': 'PC, PS5', 'year': 2020},
+        },
+        'Shooter': {
+            '"Destiny 2"': {'developer': 'Bungie', 'platform': 'PC, PS4, PS5, Xbox One, Xbox Series X',
+                            'year': 2017},
+            '"Call of Duty: Warzone"': {'developer': 'Infinity Ward, Raven Software',
+                                        'platform': 'PC, PS4, PS5, Xbox One, Xbox Series X', 'year': 2020},
+            '"Doom Eternal"': {'developer': 'id Software', 'platform': 'PC, PS4, PS5, Xbox One, Xbox Series X',
+                               'year': 2020},
+        },
+        'Strategy': {
+            '"Command and Conquer Remastered Collection"': {'developer': 'Petroglyph / Lemon Sky Studios',
+                                                            'platform': 'PC', 'year': 2020},
+            '"Into the Breach"': {'developer': 'Subset Games', 'platform': 'PC, Xbox One, Switch', 'year': 2018},
+            '"StarCraft 2"': {'developer': 'Blizzard Entertainment', 'platform': 'PC', 'year': 2010},
+        }
+    }
+
     # Perform the selected operation
     match choice:
         case 1:
-            movie()
+            recommendations(movies)
         case 2:
-            music()
+            recommendations(music_folder)
         case 3:
-            computer_game()
+            recommendations(comp_games)
         case 4:
             jokes()
         case 5:
@@ -72,253 +160,57 @@ def menu():
             games()
 
 
-def movie():
+def recommendations(catalog):
     """
-    Provides a movie recommendation based on the user's preferred genre.
-    Allows the user to choose from genres like Horrors, Comedies, Adventures, and Christmas movies.
+    Provides a movie/music/computer game recommendation based on the user's preferred genre.
+    Allows the user to choose from genres.
     Or return to the MENU by writing 0.
+    Parameters:
+        catalog (movie/music/computer game database)
     Returns:
         None
     Usage:
-        Call the function to get a random movie recommendation
+        Call the function to get a random recommendation
         Example:
             '>>> 1'
     """
+    global selected_genre
 
-    global movies
-    film_genre = -1
+    print('\nWe have:')
+    for option, genre in enumerate(catalog, 1):
+        print(f'\t{option}) {genre}')
+    print('\tType 0 to back to MENU')
 
-    while film_genre not in range(0, 5):
+    genre_option = -1
+    while genre_option not in range(1, 5):
         while True:
             try:
-                film_genre = int(input('\nWe have:'
-                                       '\n\t1) Horrors'
-                                       '\n\t2) Comedies'
-                                       '\n\t3) Adventures'
-                                       '\n\t4) Christmas movies'
-                                       '\n\tType 0 to back to MENU'
-                                       '\n>>> '))
+                genre_option = int(input('Your choice\n>>> '))
                 break
-            except (TypeError, ValueError):
-                print('Please enter a valid number.')
+            except (ValueError, TypeError):
+                print('‼️ Please enter a valid number.')
 
-        movies = {
-            'Horror': {
-                'The Exorcist': {'year': 1973, 'IMDb rate': 8.1},
-                '[Rec]': {'year': 2007, 'IMDb rate': 7.4},
-                'Paranormal Activity': {'year': 2007, 'IMDb rate': 6.3},
-                'Shutter (II)': {'year': 2004, 'IMDb rate': 7.0},
-                'The Fourth Kind': {'year': 2009, 'IMDb rate': 5.9}
-            },
-            'Comedy': {
-                'Step Brothers': {'year': 2008, 'IMDb rate': 6.9},
-                'White Chicks': {'year': 2004, 'IMDb rate': 5.8},
-                'The Hot Chick': {'year': 2002, 'IMDb rate': 5.5},
-                'The Hangover': {'year': 2009, 'IMDb rate': 7.7},
-                'Horrible Bosses': {'year': 2011, 'IMDb rate': 6.9}
-            },
-            'Adventure': {
-                'The Killer': {'year': 2023, 'IMDb rate': 7.4},
-                'Spider-Man: Across the Spider-Verse': {'year': 2023, 'IMDb rate': 8.7},
-                'Barbie': {'year': 2023, 'IMDb rate': 7.0},
-                'Mission: Impossible - Dead Reckoning Part One': {'year': 2023, 'IMDb rate': 7.8},
-                'The Hunger Games': {'year': 2012, 'IMDb rate': 7.2}
-            },
-            'Christmas': {
-                'Home Alone ': {'year': 1990, 'IMDb rate': 7.7},
-                'National Lampoon\'s Christmas Vacation': {'year': 1989, 'IMDb rate': 7.5},
-                'Elf': {'year': 2003, 'IMDb rate': 7.1},
-                'Trading Places': {'year': 1983, 'IMDb rate': 7.5},
-                'The Christmas Chronicles': {'year': 2018, 'IMDb rate': 7.0}
-            }
-        }
-        if film_genre not in range(0, 5):
-            print('‼️Invalid choice. Try again')
-        if film_genre == 0:
-            menu()
+            if genre_option not in range(1, 5):
+                print('‼️ Please choose a valid number.')
+                continue
+
+            if genre_option == 0:
+                menu()
+
     else:
-        match film_genre:
-            case 1:
-                film_genre = 'Horror'
-            case 2:
-                film_genre = 'Comedy'
-            case 3:
-                film_genre = 'Adventure'
-            case 4:
-                film_genre = 'Christmas'
-
-        random_movie = random.choice(list(movies[film_genre].keys()))
-
-        print(f'🍿My recommendation for you is {random_movie} '
-              f'({movies[film_genre][random_movie]["year"]}) '
-              f'with IMDb rate {movies[film_genre][random_movie]["IMDb rate"]}')
-
-        time.sleep(5)
-        menu()
-
-
-def music():
-    """
-        Provides a music recommendation based on the user's preferred genre.
-        Allows the user to choose from genres like Rock, Jazz, Blues, and Christmas songs.
-        Or return to the MENU by writing 0.
-        Returns:
-            None
-        Usage:
-            Call the function to get a random music recommendation
-            Example:
-                '>>> 1'
-    """
-    global music_folder
-    music_genre = -1
-
-    while music_genre not in range(0, 5):
-        while True:
-            try:
-                music_genre = int(input('\nWe have:'
-                                        '\n\t1) Rock'
-                                        '\n\t2) Jazz'
-                                        '\n\t3) Blues'
-                                        '\n\t4) Christmas songs'
-                                        '\n\tType 0 to back to MENU'
-                                        '\n>>> '))
+        for option, genre in enumerate(catalog, 1):
+            if option == genre_option:
+                selected_genre = catalog.get(genre)
                 break
-            except (TypeError, ValueError):
-                print('Please enter a valid number.')
 
-        music_folder = {
-            'Rock': {
-                '"I Love Rock\'N Roll"': {'singer': 'Joan Jett & the Blackhearts', 'year': 1981},
-                '"Born to Run"': {'singer': 'Bruce Springsteen', 'year': 1975},
-                '"Starman"': {'singer': 'David Bowie', 'year': 1972},
-                '"Whole Lotta Love"': {'singer': 'Led Zeppelin', 'year': 1969},
-                '"La Grange"': {'singer': 'ZZ Top', 'year': 1973}
-            },
-            'Jazz': {
-                '"Take Five"': {'singer': 'Dave Brubeck Quartet', 'year': 1959},
-                '"Kind of Blue"': {'singer': 'Miles Davis', 'year': 1959},
-                '"A Love Supreme"': {'singer': 'John Coltrane', 'year': 1965},
-                '"My Favorite Things"': {'singer': 'John Coltrane', 'year': 1961},
-                '"So What"': {'singer': 'Miles Davis', 'year': 1959},
-            },
-            'Blues': {
-                '"Stormy Monday"': {'singer': 'T-Bone Walker', 'year': 1947},
-                '"The Thrill is Gone"': {'singer': 'B.B. King', 'year': 1969},
-                '"Crossroads"': {'singer': 'Robert Johnson', 'year': 1936},
-                '"Hoochie Coochie Man"': {'singer': 'Muddy Waters', 'year': 1954},
-                '"Sweet Home Chicago"': {'singer': 'Robert Johnson', 'year': 1936},
-            },
-            'Christmas': {
-                '"All I Want for Christmas Is You"': {'singer': 'Mariah Carey', 'year': 1994},
-                '"Last Christmas"': {'singer': 'Wham!', 'year': 1984},
-                '"Jingle Bell Rock"': {'singer': 'Bobby Helms', 'year': 1957},
-                '"Feliz Navidad"': {'singer': 'José Feliciano', 'year': 1970},
-                '"White Christmas"': {'singer': 'Bing Crosby', 'year': 1942},
-            }
-        }
-        if music_genre not in range(0, 5):
-            print('‼️Invalid choice. Try again')
-        if music_genre == 0:
-            menu()
-    else:
-        match music_genre:
-            case 1:
-                music_genre = 'Rock'
-            case 2:
-                music_genre = 'Jazz'
-            case 3:
-                music_genre = 'Blues'
-            case 4:
-                music_genre = 'Christmas'
+        random_choice = random.choice(list(selected_genre.keys()))
 
-    random_music = random.choice(list(music_folder[music_genre].keys()))
-
-    print(f'🎧My recommendation for you is {random_music} '
-          f'by {music_folder[music_genre][random_music]["singer"]} '
-          f'({music_folder[music_genre][random_music]["year"]})')
+        print(f'\n🤓 My recommendation for you is {random_choice}')
+        for rec, desc in selected_genre[random_choice].items():
+            print(f'{rec}: {desc}')
 
     time.sleep(5)
     menu()
-
-
-def computer_game():
-    """
-        Provides a computer game recommendation based on the user's preferred genre.
-        Allows the user to choose from genres like Action, Adventure, Shooter, and Strategy.
-        Or return to the MENU by writing 0.
-        Returns:
-            None
-        Usage:
-            Call the function to get a random computer game recommendation
-            Example:
-                '>>> 1'
-    """
-    global comp_games
-    game_genre = -1
-
-    while game_genre not in range(0, 5):
-        while True:
-            try:
-                game_genre = int(input('\nWe have these genres:'
-                                       '\n\t1) Action ⚡️'
-                                       '\n\t2) Adventure 🎒'
-                                       '\n\t3) Shooter 🔫'
-                                       '\n\t4) Strategy 🧠'
-                                       '\n\tType 0 to back to MENU'
-                                       '\n>>> '))
-                break
-            except (TypeError, ValueError):
-                print('Please enter a valid number.')
-
-        comp_games = {
-            'Action': {
-                '"God of War"': {'developer': 'Insomniac Games', 'platform': 'PC, PS4, PS5', 'year': 2018},
-                '"Uncharted 4: A Thief\'s End"': {'developer': 'Naughty Dog', 'platform': 'PC, PS4, PS5', 'year': 2016},
-                '"Marvel\'s Spider-Man"': {'developer': 'Insomniac Games', 'platform': 'PC, PS4, PS5', 'year': 2018}
-            },
-            'Adventure': {
-                '"Red Dead Redemption 2"': {'developer': 'Rockstar', 'platform': 'PC, PS4, Xbox One', 'year': 2018},
-                '"The Witcher 3: Wild Hunt"': {'developer': 'CD Projekt Red',
-                                               'platform': 'PC, PS4, Xbox One, Nintendo Switch', 'year': 2015},
-                '"Baldur\'s Gate 3"': {'developer': 'Larian Studios', 'platform': 'PC, PS5', 'year': 2020},
-            },
-            'Shooter': {
-                '"Destiny 2"': {'developer': 'Bungie', 'platform': 'PC, PS4, PS5, Xbox One, Xbox Series X',
-                                'year': 2017},
-                '"Call of Duty: Warzone"': {'developer': 'Infinity Ward, Raven Software',
-                                            'platform': 'PC, PS4, PS5, Xbox One, Xbox Series X', 'year': 2020},
-                '"Doom Eternal"': {'developer': 'id Software', 'platform': 'PC, PS4, PS5, Xbox One, Xbox Series X',
-                                   'year': 2020},
-            },
-            'Strategy': {
-                '"Command and Conquer Remastered Collection"': {'developer': 'Petroglyph / Lemon Sky Studios',
-                                                                'platform': 'PC', 'year': 2020},
-                '"Into the Breach"': {'developer': 'Subset Games', 'platform': 'PC, Xbox One, Switch', 'year': 2018},
-                '"StarCraft 2"': {'developer': 'Blizzard Entertainment', 'platform': 'PC', 'year': 2010},
-            }
-        }
-
-        if game_genre not in range(0, 5):
-            print('‼️Invalid choice. Try again')
-        if game_genre == 0:
-            menu()
-    else:
-        match game_genre:
-            case 1:
-                game_genre = 'Action'
-            case 2:
-                game_genre = 'Adventure'
-            case 3:
-                game_genre = 'Shooter'
-            case 4:
-                game_genre = 'Strategy'
-
-    random_game = random.choice(list(comp_games[game_genre].keys()))
-
-    print(f'🎮My recommendation for you is {random_game} '
-          f'({comp_games[game_genre][random_game]["year"]}) '
-          f'for {comp_games[game_genre][random_game]["platform"]} '
-          f'by {comp_games[game_genre][random_game]["developer"]}')
 
 
 def jokes():
@@ -337,7 +229,7 @@ def jokes():
     """
 
     joke = pyjokes.get_joke('en', 'all')
-    print(f'🤡Joke of the day is:'
+    print(f'\n🤡Joke of the day is:'
           f'\n{joke}')
 
     time.sleep(5)
@@ -397,7 +289,7 @@ def story():
                                         '\n>>> '))
                 break
             except (TypeError, ValueError):
-                print('Please enter a valid number.')
+                print('\nPlease enter a valid number.')
 
         stories = {
             'Science Fiction': {'title': 'The Quantum Heist',
@@ -429,7 +321,7 @@ def story():
         }
 
         if story_genre not in range(0, 4):
-            print('‼️Invalid choice. Try again')
+            print('\n‼️Invalid choice. Try again')
         if story_genre == 0:
             menu()
     else:
@@ -468,7 +360,7 @@ def games():
     while game_choice not in range(0, 3):
         while True:
             try:
-                game_choice = int(input('Cool! We have 2 games to play:'
+                game_choice = int(input('\nCool! We have 2 games to play:'
                                         '\n\t1) Guess a Number Game 🧠'
                                         '\n\t2) Rock-Paper-Scissors Game ✂️'
                                         '\n\tType 0 to back to MENU'
@@ -476,10 +368,10 @@ def games():
                                         '\n>>> '))
                 break
             except (TypeError, ValueError):
-                print('Please enter a valid number.')
+                print('\nPlease enter a valid number.')
 
         if game_choice not in range(0, 3):
-            print('‼️Invalid choice. Try again')
+            print('\n‼️Invalid choice. Try again')
         if game_choice == 0:
             menu()
     else:
@@ -517,7 +409,7 @@ def game_guess_a_number():
     """
 
     global user_guess
-    print('Let\'s start a 🧠Guess a Number Game!')
+    print('\nLet\'s start a 🧠Guess a Number Game!')
     guess_counter = 3
 
     start_number = random.randint(-100, 100)
@@ -525,27 +417,29 @@ def game_guess_a_number():
 
     secret_number = random.randint(start_number, end_number)
 
-    print(f'\nYou need to guess a number between {start_number} and {end_number} .... {secret_number}'
+    print(f'\nYou need to guess a number between {start_number} and {end_number}'
           f'\nOh... Forgot to say 🤭'
           f'\nYOU HAVE ONLY {guess_counter} ATTEMPTS to win (or lose😏)\n')
+
+    print(f'\nHint: {secret_number}')
 
     for guess in range(guess_counter):
         while True:
             try:
-                user_guess = int(input(f'Your {guess + 1} guess is >>> '))
+                user_guess = int(input(f'\nYour {guess + 1} guess is >>> '))
                 break
             except (TypeError, ValueError):
                 print('Please enter a valid number.')
 
         if user_guess == secret_number:
-            print(f'🎉OMG! You\'re right!'
+            print(f'\n🎉OMG! You\'re right!'
                   f'\nYou guessed it on the {guess + 1} try!')
             print(art.text2art('WINNER'))
             break
         elif (guess + 1) == guess_counter:
             print(art.text2art('LOOOOOOOSER!'))
         else:
-            print('No🫣 Try again')
+            print('\nNo🫣 Try again')
 
     revenge = -1
     while revenge not in range(0, 3):
@@ -612,43 +506,66 @@ def game_rock_paper_scissors():
     lose = 0
     draw = 0
 
+    print(f'\nLet\'s start a ✂️Rock-Paper-Scissors Game!'
+          f'\nYou need to choose between ROCK 🪨, PAPER 📄and SCISSORS ✂️'
+          f'\nYou have only {attempts} attempts to win ')
+
     def winner():
+        """
+        Function for win points counting
+
+        Returns:
+             win points (win)
+
+        Usage:
+            Called by mother function after user's move
+        """
+
         global win
         win += 1
-        print(f'🎉YOU WIN!'
+        print(f'{game_options[user_choice]} beats {game_options[random_option]}'
+              f'\n🎉YOU WIN!'
               f'\nScore now {win}:{lose}'
               f'\nDraws were {draw} times')
         return win
 
     def loser():
+        """
+        Function for lose points counting
+
+        Returns:
+            lose points (lose)
+
+        Usage:
+            Called by mother function after user's move
+        """
+
         global lose
         lose += 1
-        print(f'🤡YOU LOSE!'
+
+        print(f'{game_options[random_option]} beats {game_options[user_choice]}'
+              f'\n🤡YOU LOSE!'
               f'\nScore now {win}:{lose}'
               f'\nDraws were {draw} times')
         return lose
 
-    print(f'Let\'s start a ✂️Rock-Paper-Scissors Game!'
-          f'\nYou need to choose between ROCK 🪨, PAPER 📄and SCISSORS ✂️'
-          f'\nWho will reach {attempts} points first - WINS 🎉\n')
-
-    while win != attempts or lose != attempts:
+    while (win + draw) != attempts or (lose + draw) != attempts:
         random_option = random.choice(list(game_options.keys()))
-        print(random_option)
+        print(f'\nHint: {game_options[random_option]}')
+
         while True:
             try:
-                user_choice = input('Choose:'
+                user_choice = input('\nChoose:'
                                     '\n\tR for ROCK 🪨'
                                     '\n\tP for PAPER 📄'
                                     '\n\tS for SCISSORS ✂️'
-                                    '\n\tType 0 to back to MENU'
                                     '\n>>> ').strip().lower()
                 break
             except (TypeError, ValueError):
-                print('Please enter R, P, S, or 0.')
+                print('\nPlease enter R, P, or S')
                 continue
         if user_choice not in {'r', 'p', 's'}:
-            print('Invalid choice. Please enter R, P, S, or 0.')
+            print('\nInvalid choice. Please enter R, P, or S')
             continue
         if user_choice == '0':
             menu()
@@ -658,6 +575,7 @@ def game_rock_paper_scissors():
         if user_choice == random_option:
             draw += 1
             print(f'DRAW 🤝'
+                  f'\nYou both\'ve chosen the {game_options[random_option]}'
                   f'\nScore now {win}:{lose}'
                   f'\nDraws were {draw} times')
         # USER == ROCK 🪨
@@ -696,6 +614,11 @@ def game_rock_paper_scissors():
                 loser()
                 if lose == attempts:
                     break
+
+    if win > lose:
+        print(art.text2art('WINNER'))
+    else:
+        print(art.text2art('LOSER'))
 
     revenge = -1
     while revenge not in range(0, 3):
