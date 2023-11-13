@@ -32,31 +32,6 @@ def menu():
             ">>> 1"
     """
 
-    while True:
-        try:
-            choice = int(input('\nChoose what do you want now 👇'
-                               '\n\t1) Movie Recommendation 🍿'
-                               '\n\t2) Music Recommendation 🎵'
-                               '\n\t3) Computer Game Recommendation 🎮'
-                               '\n\t4) Read a Funny Joke 😄'
-                               '\n\t5) Read an Interesting Story 📖'
-                               '\n\t6) Play a Game 🕹️'
-                               '\n\tType 0 to EXIT 🚪'
-                               '\n>>> '))
-        except (TypeError, ValueError):
-            print('Please enter a valid number.')
-            continue
-
-        if not 0 <= choice <= 6:
-            print('‼️Invalid operation. Try again')
-            continue
-
-        if choice == 0:
-            for _ in tqdm(range(10), desc="Completion of the program", ncols=100, colour='green'):
-                time.sleep(0.1)
-            print('\nThank you for time with us! 🤝')
-        break
-
     movies = {
         'Horror': {
             'The Exorcist': {'year': 1973, 'IMDb rate': 8.1},
@@ -176,20 +151,41 @@ def menu():
                     }
     }
 
-    # Perform the selected operation
-    match choice:
-        case 1:
-            recommendations(movies)
-        case 2:
-            recommendations(music_folder)
-        case 3:
-            recommendations(comp_games)
-        case 4:
-            jokes()
-        case 5:
-            story(stories)
-        case 6:
-            games()
+    while True:
+        try:
+            choice = int(input('\nChoose what do you want now 👇'
+                               '\n\t1) Movie Recommendation 🍿'
+                               '\n\t2) Music Recommendation 🎵'
+                               '\n\t3) Computer Game Recommendation 🎮'
+                               '\n\t4) Read a Funny Joke 😄'
+                               '\n\t5) Read an Interesting Story 📖'
+                               '\n\t6) Play a Game 🕹️'
+                               '\n\tType 0 to EXIT 🚪'
+                               '\n>>> '))
+        except (TypeError, ValueError):
+            print('Please enter a valid number.')
+            continue
+
+        match choice:
+            case 0:
+                for _ in tqdm(range(10), desc="Completion of the program", ncols=100, colour='green'):
+                    time.sleep(0.1)
+                print('\nThank you for time with us! 🤝')
+                break
+            case 1:
+                recommendations(movies)
+            case 2:
+                recommendations(music_folder)
+            case 3:
+                recommendations(comp_games)
+            case 4:
+                jokes()
+            case 5:
+                story(stories)
+            case 6:
+                games()
+            case _:
+                print('‼️Invalid operation. Try again')
 
 
 def recommendations(catalog):
@@ -207,8 +203,6 @@ def recommendations(catalog):
             '>>> 1'
     """
 
-    global selected_genre, genre_option
-
     print('\nWe have:')
     for option, genre in enumerate(catalog, 1):
         print(f'\t{option}) {genre}')
@@ -222,12 +216,12 @@ def recommendations(catalog):
             print('‼️ Please enter a valid number.')
             continue
 
-        if not 0 <= genre_option <= 4:
+        if not 0 <= genre_option <= len(catalog):
             print('‼️ Please choose a valid number.')
             continue
 
         if genre_option == 0:
-            menu()
+            return
 
         break
 
@@ -243,7 +237,6 @@ def recommendations(catalog):
         print(f'{rec}: {desc}')
 
     time.sleep(5)
-    menu()
 
 
 def jokes():
@@ -266,7 +259,6 @@ def jokes():
           f'\n{joke}')
 
     time.sleep(5)
-    menu()
 
 
 def story_editor(bare_story):
@@ -323,12 +315,12 @@ def story(book):
             print('‼️ Please enter a valid number.')
             continue
 
-        if not 0 <= story_option <= 3:
+        if not 0 <= story_option <= len(book):
             print('‼️ Please choose a valid number.')
             continue
 
         if story_option == 0:
-            menu()
+            return
 
         break
 
@@ -343,7 +335,6 @@ def story(book):
           f'\n\n\t{story_to_read}')
 
     time.sleep(10)
-    menu()
 
 
 def games():
@@ -374,11 +365,12 @@ def games():
             print('\nPlease enter a valid number.')
             continue
 
-        if not 0 <= game_choice <= 3:
+        if not 0 <= game_choice <= 2:
             print('\n‼️Invalid choice. Try again')
             continue
         if game_choice == 0:
-            menu()
+            return
+
         break
 
     match game_choice:
@@ -425,7 +417,7 @@ def game_guess_a_number():
 
     print(f'\nYou need to guess a number between {start_number} and {end_number}'
           f'\nOh... Forgot to say 🤭'
-          f'\nYOU HAVE ONLY {guess_counter} ATTEMPTS to win (or lose😏)\n')
+          f'\nYOU HAVE ONLY {guess_counter} ATTEMPTS to win (or lose😏)')
 
     print(f'\nHint: {secret_number}')
 
@@ -459,12 +451,13 @@ def game_guess_a_number():
             print('Please enter a valid number.')
             continue
 
-        if not 0 <= revenge <= 3:
+        if not 0 <= revenge <= 2:
             print('‼️Invalid choice. Try again')
             continue
 
         if revenge == 0:
-            menu()
+            return
+
         break
 
     match revenge:
@@ -531,7 +524,6 @@ def game_rock_paper_scissors():
         elif result == 'LOSE':
             lose += 1
 
-
     while True:
         random_option = random.choice(list(game_options.keys()))
 
@@ -554,7 +546,8 @@ def game_rock_paper_scissors():
                 continue
 
             if user_choice == '0':
-                menu()
+                return
+
             break
 
         if user_choice == random_option:
@@ -594,7 +587,7 @@ def game_rock_paper_scissors():
             continue
 
         if revenge == 0:
-            menu()
+            return
 
         break
 
