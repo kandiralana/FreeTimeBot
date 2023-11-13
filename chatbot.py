@@ -549,7 +549,7 @@ def game_rock_paper_scissors():
               f'\nDraws were {draw} times')
         return lose
 
-    while (win + draw) != attempts or (lose + draw) != attempts:
+    while True:
         random_option = random.choice(list(game_options.keys()))
         print(f'\nHint: {game_options[random_option]}')
 
@@ -614,6 +614,11 @@ def game_rock_paper_scissors():
                 loser()
                 if lose == attempts:
                     break
+
+        if win == lose:
+            continue
+        elif win == (attempts - 1) or lose == (attempts - 1):
+            break
 
     if win > lose:
         print(art.text2art('WINNER'))
