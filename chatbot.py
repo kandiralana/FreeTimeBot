@@ -455,12 +455,11 @@ def game_guess_a_number():
             print('‼️Invalid choice. Try again')
             continue
 
-        if revenge == 0:
-            return
-
         break
 
     match revenge:
+        case 0:
+            return
         case 1:
             game_guess_a_number()
         case 2:
@@ -586,12 +585,11 @@ def game_rock_paper_scissors():
             print('‼️Invalid choice. Try again')
             continue
 
-        if revenge == 0:
-            return
-
         break
 
     match revenge:
+        case 0:
+            return
         case 1:
             game_rock_paper_scissors()
         case 2:
