@@ -31,30 +31,31 @@ def menu():
         Example:
             ">>> 1"
     """
-    choice = -1
-    while choice not in range(0, 7):
-        while True:
-            try:
-                choice = int(input('\nChoose what do you want now 👇'
-                                   '\n\t1) Movie Recommendation 🍿'
-                                   '\n\t2) Music Recommendation 🎵'
-                                   '\n\t3) Computer Game Recommendation 🎮'
-                                   '\n\t4) Read a Funny Joke 😄'
-                                   '\n\t5) Read an Interesting Story 📖'
-                                   '\n\t6) Play a Game 🕹️'
-                                   '\n\tType 0 to EXIT 🚪'
-                                   '\n>>> '))
-                break
-            except (TypeError, ValueError):
-                print('Please enter a valid number.')
 
-        if choice not in range(0, 7):
+    while True:
+        try:
+            choice = int(input('\nChoose what do you want now 👇'
+                               '\n\t1) Movie Recommendation 🍿'
+                               '\n\t2) Music Recommendation 🎵'
+                               '\n\t3) Computer Game Recommendation 🎮'
+                               '\n\t4) Read a Funny Joke 😄'
+                               '\n\t5) Read an Interesting Story 📖'
+                               '\n\t6) Play a Game 🕹️'
+                               '\n\tType 0 to EXIT 🚪'
+                               '\n>>> '))
+        except (TypeError, ValueError):
+            print('Please enter a valid number.')
+            continue
+
+        if not 0 <= choice <= 6:
             print('‼️Invalid operation. Try again')
+            continue
+
         if choice == 0:
             for _ in tqdm(range(10), desc="Completion of the program", ncols=100, colour='green'):
                 time.sleep(0.1)
             print('\nThank you for time with us! 🤝')
-            break
+        break
 
     movies = {
         'Horror': {
@@ -86,6 +87,7 @@ def menu():
             'The Christmas Chronicles': {'year': 2018, 'IMDb rate': 7.0}
         }
     }
+
     music_folder = {
         'Rock': {
             '"I Love Rock\'N Roll"': {'singer': 'Joan Jett & the Blackhearts', 'year': 1981},
@@ -116,6 +118,7 @@ def menu():
             '"White Christmas"': {'singer': 'Bing Crosby', 'year': 1942},
         }
     }
+
     comp_games = {
         'Action': {
             '"God of War"': {'developer': 'Insomniac Games', 'platform': 'PC, PS4, PS5', 'year': 2018},
@@ -144,6 +147,35 @@ def menu():
         }
     }
 
+    stories = {
+        'Science Fiction': {'title': 'The Quantum Heist',
+                            'text': 'In the year 2150, a group of renegade scientists discovered a way to '
+                                    'manipulate quantum reality. They hatched a plan to infiltrate the most '
+                                    'secure quantum bank in the multiverse. The heist involved navigating through '
+                                    'alternate realities, dodging quantum security measures, and stealing from '
+                                    'parallel universes. As they executed their plan, they encountered versions '
+                                    'of themselves from different timelines, creating a mind-bending adventure '
+                                    'that blurred the lines between theft and destiny.'
+                            },
+        'Mystery': {'title': 'The Enigmatic Manuscript',
+                    'text': 'In a quiet town, a rare manuscript emerged, its origins shrouded in mystery. The '
+                            'book contained a series of cryptic symbols and coded messages that had stumped '
+                            'scholars for centuries. As a determined detective delved into the case, '
+                            'they discovered a secret society that had guarded the manuscript\'s true meaning for '
+                            'generations. The detective unraveled the codes, exposing a hidden history that could '
+                            'change the course of humanity.'
+                    },
+        'Fantasy': {'title': 'The Song of the Whispering Woods',
+                    'text': 'Deep within the enchanted Whispering Woods, a bard discovered an ancient harp with '
+                            'the power to control nature itself. As the bard played, the trees whispered secrets, '
+                            'and the rivers danced to the melody. However, an evil sorceress sought to harness '
+                            'the harp\'s magic for dark purposes. The bard embarked on a quest, accompanied by '
+                            'talking animals and mystical creatures, to prevent the harp from falling into the '
+                            'wrong hands. Their journey unfolded like a lyrical epic, filled with magical '
+                            'encounters and a battle between harmony and discord.'
+                    }
+    }
+
     # Perform the selected operation
     match choice:
         case 1:
@@ -155,7 +187,7 @@ def menu():
         case 4:
             jokes()
         case 5:
-            story()
+            story(stories)
         case 6:
             games()
 
@@ -174,40 +206,41 @@ def recommendations(catalog):
         Example:
             '>>> 1'
     """
-    global selected_genre
+
+    global selected_genre, genre_option
 
     print('\nWe have:')
     for option, genre in enumerate(catalog, 1):
         print(f'\t{option}) {genre}')
     print('\tType 0 to back to MENU')
 
-    genre_option = -1
-    while genre_option not in range(1, 5):
-        while True:
-            try:
-                genre_option = int(input('Your choice\n>>> '))
-                break
-            except (ValueError, TypeError):
-                print('‼️ Please enter a valid number.')
+    while True:
+        try:
+            genre_option = int(input('Your choice\n>>> '))
 
-            if genre_option not in range(1, 5):
-                print('‼️ Please choose a valid number.')
-                continue
+        except (ValueError, TypeError):
+            print('‼️ Please enter a valid number.')
+            continue
 
-            if genre_option == 0:
-                menu()
+        if not 0 <= genre_option <= 4:
+            print('‼️ Please choose a valid number.')
+            continue
 
-    else:
-        for option, genre in enumerate(catalog, 1):
-            if option == genre_option:
-                selected_genre = catalog.get(genre)
-                break
+        if genre_option == 0:
+            menu()
 
-        random_choice = random.choice(list(selected_genre.keys()))
+        break
 
-        print(f'\n🤓 My recommendation for you is {random_choice}')
-        for rec, desc in selected_genre[random_choice].items():
-            print(f'{rec}: {desc}')
+    for option, genre in enumerate(catalog, 1):
+        if option == genre_option:
+            selected_genre = catalog.get(genre)
+        break
+
+    random_choice = random.choice(list(selected_genre.keys()))
+
+    print(f'\n🤓 My recommendation for you is {random_choice}')
+    for rec, desc in selected_genre[random_choice].items():
+        print(f'{rec}: {desc}')
 
     time.sleep(5)
     menu()
@@ -263,7 +296,7 @@ def story_editor(bare_story):
     return edited_story
 
 
-def story():
+def story(book):
     """
     Manages the selection and display of stories based on user input.
 
@@ -275,66 +308,38 @@ def story():
             '>>> 2'
     """
 
-    global stories
-    story_genre = -1
+    global story_genre, story_option
 
-    while story_genre not in range(0, 4):
-        while True:
-            try:
-                story_genre = int(input('\nWe have these genres:'
-                                        '\n\t1) Science Fiction 🧠'
-                                        '\n\t2) Mystery 🦇'
-                                        '\n\t3) Fantasy 🧚'
-                                        '\n\tType 0 to back to MENU'
-                                        '\n>>> '))
-                break
-            except (TypeError, ValueError):
-                print('\nPlease enter a valid number.')
+    print('\nWe have:')
+    for option, genre in enumerate(book, 1):
+        print(f'\t{option}) {genre}')
+    print('\tType 0 to back to MENU')
 
-        stories = {
-            'Science Fiction': {'title': 'The Quantum Heist',
-                                'text': 'In the year 2150, a group of renegade scientists discovered a way to '
-                                        'manipulate quantum reality. They hatched a plan to infiltrate the most '
-                                        'secure quantum bank in the multiverse. The heist involved navigating through '
-                                        'alternate realities, dodging quantum security measures, and stealing from '
-                                        'parallel universes. As they executed their plan, they encountered versions '
-                                        'of themselves from different timelines, creating a mind-bending adventure '
-                                        'that blurred the lines between theft and destiny.'
-                                },
-            'Mystery': {'title': 'The Enigmatic Manuscript',
-                        'text': 'In a quiet town, a rare manuscript emerged, its origins shrouded in mystery. The '
-                                'book contained a series of cryptic symbols and coded messages that had stumped '
-                                'scholars for centuries. As a determined detective delved into the case, '
-                                'they discovered a secret society that had guarded the manuscript\'s true meaning for '
-                                'generations. The detective unraveled the codes, exposing a hidden history that could '
-                                'change the course of humanity.'
-                        },
-            'Fantasy': {'title': 'The Song of the Whispering Woods',
-                        'text': 'Deep within the enchanted Whispering Woods, a bard discovered an ancient harp with '
-                                'the power to control nature itself. As the bard played, the trees whispered secrets, '
-                                'and the rivers danced to the melody. However, an evil sorceress sought to harness '
-                                'the harp\'s magic for dark purposes. The bard embarked on a quest, accompanied by '
-                                'talking animals and mystical creatures, to prevent the harp from falling into the '
-                                'wrong hands. Their journey unfolded like a lyrical epic, filled with magical '
-                                'encounters and a battle between harmony and discord.'
-                        }
-        }
+    while True:
+        try:
+            story_option = int(input('Your choice\n>>> '))
 
-        if story_genre not in range(0, 4):
-            print('\n‼️Invalid choice. Try again')
-        if story_genre == 0:
+        except (ValueError, TypeError):
+            print('‼️ Please enter a valid number.')
+            continue
+
+        if not 0 <= story_option <= 3:
+            print('‼️ Please choose a valid number.')
+            continue
+
+        if story_option == 0:
             menu()
-    else:
-        match story_genre:
-            case 1:
-                story_genre = 'Science Fiction'
-            case 2:
-                story_genre = 'Mystery'
-            case 3:
-                story_genre = 'Fantasy'
 
-    story_to_read = story_editor(stories[story_genre]["text"])
-    print(f'📖My recommendation for you is "{stories[story_genre]["title"]}":'
+        break
+
+    for option, story in enumerate(book, 1):
+        if option == story_option:
+            story_genre = book.get(story)
+            break
+
+    story_to_read = story_editor(story_genre["text"])
+
+    print(f'📖My recommendation for you is "{story_genre["title"]}":'
           f'\n\n\t{story_to_read}')
 
     time.sleep(10)
@@ -356,30 +361,31 @@ def games():
             [The Guess a Number Game starts]
     """
 
-    game_choice = -1
-    while game_choice not in range(0, 3):
-        while True:
-            try:
-                game_choice = int(input('\nCool! We have 2 games to play:'
-                                        '\n\t1) Guess a Number Game 🧠'
-                                        '\n\t2) Rock-Paper-Scissors Game ✂️'
-                                        '\n\tType 0 to back to MENU'
-                                        '\nWhich do you want to play?'
-                                        '\n>>> '))
-                break
-            except (TypeError, ValueError):
-                print('\nPlease enter a valid number.')
+    while True:
+        try:
+            game_choice = int(input('\nCool! We have 2 games to play:'
+                                    '\n\t1) Guess a Number Game 🧠'
+                                    '\n\t2) Rock-Paper-Scissors Game ✂️'
+                                    '\n\tType 0 to back to MENU'
+                                    '\nWhich do you want to play?'
+                                    '\n>>> '))
 
-        if game_choice not in range(0, 3):
+        except (TypeError, ValueError):
+            print('\nPlease enter a valid number.')
+            continue
+
+        if not 0 <= game_choice <= 3:
             print('\n‼️Invalid choice. Try again')
+            continue
         if game_choice == 0:
             menu()
-    else:
-        match game_choice:
-            case 1:
-                game_guess_a_number()
-            case 2:
-                game_rock_paper_scissors()
+        break
+
+    match game_choice:
+        case 1:
+            game_guess_a_number()
+        case 2:
+            game_rock_paper_scissors()
 
 
 def game_guess_a_number():
