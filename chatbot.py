@@ -368,12 +368,12 @@ def games():
         if not 0 <= game_choice <= 2:
             print('\n‼️Invalid choice. Try again')
             continue
-        if game_choice == 0:
-            return
 
         break
 
     match game_choice:
+        case 0:
+            return
         case 1:
             game_guess_a_number()
         case 2:
