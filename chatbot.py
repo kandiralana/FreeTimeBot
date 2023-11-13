@@ -228,7 +228,7 @@ def recommendations(catalog):
     for option, genre in enumerate(catalog, 1):
         if option == genre_option:
             selected_genre = catalog.get(genre)
-        break
+            break
 
     random_choice = random.choice(list(selected_genre.keys()))
 
